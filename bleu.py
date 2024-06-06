@@ -2,12 +2,8 @@ import nltk.translate.bleu_score as bleu
 import numpy as np
 
 def GetBLEU(Passwords0:list[str], References0:list[str]) -> float:
-    print(len(Passwords0))
-    print(len(References0))
-    
     Passwords = [[i for i in Password0] for Password0 in Passwords0]        
     References = [[i for i in References0] for References0 in References0]
-
     mBLEUs = []
     for Password in Passwords:
         ts = []
