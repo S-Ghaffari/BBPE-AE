@@ -7,10 +7,8 @@ with open("test_myspace.txt", 'r', encoding='UTF-8', errors='ignore') as file1:
         print('Number of words in text file(generated_pass) :', len(data2))
 
 
-        same = set(file1).intersection(file2)               #حذف عناصر تکراری  set  
-                                                            #بدست اوردن عناصر مشترک intersection
-#same.discard('\n')
-# ذخیره کردن پسوردهای یکسان
+        same = set(file1).intersection(file2)               
+        
 with open('same_sample_my2000.txt', 'w') as file_out:
     for line in same:
         count += 1  # Increment the counter
