@@ -5,8 +5,6 @@ with open("test_myspace.txt", 'r', encoding='UTF-8', errors='ignore') as file1:
         data2 = file2.read().split()
         print('Number of words in text file(dataset) :', len(data1))
         print('Number of words in text file(generated_pass) :', len(data2))
-
-
         same = set(file1).intersection(file2)               
         
 with open('same_sample_my2000.txt', 'w') as file_out:
@@ -17,5 +15,3 @@ with open('same_sample_my2000.txt', 'w') as file_out:
 
 print("Number of identical passwords obtained:", count)
 
-
-print("-"*60)
