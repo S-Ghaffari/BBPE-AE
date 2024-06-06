@@ -111,11 +111,11 @@ def GenerateSingle(Model:mod.Sequential,
     StartIndex1 = Vocabulary['<START>']
     OOVIndex1 = Vocabulary['<OOV>']
     PaddingIndex1 = Vocabulary['<PADDING>']
-    MaxLength2 = Model.input[1].shape[1]  #به طول بعد دوم ورودی مدل اشاره دارد
+    MaxLength2 = Model.input[1].shape[1]  
     First = True
     while True:
-        InputTokens1 = Tokens[-nLag:]       # 5 تا عنصر اخر را برمیگرداند
-        InputIndexes1 = [Vocabulary[InputToken1] for InputToken1 in InputTokens1]       # ایندکس های متنظر را برمیگرداند
+        InputTokens1 = Tokens[-nLag:]       
+        InputIndexes1 = [Vocabulary[InputToken1] for InputToken1 in InputTokens1]       
         InputIndexes2 = []
         for Token1 in InputTokens1:
             if Token1 in ['<START>', '<END>', '<OOV>', '<PADDING>']:
@@ -126,9 +126,7 @@ def GenerateSingle(Model:mod.Sequential,
         while len(InputIndexes2) < MaxLength2:
             InputIndexes2 = [Characters['<PADDING>']] + InputIndexes2
         X = (np.array([InputIndexes1]), np.array([InputIndexes2]), np.array([InputIndexes1]), np.array([InputIndexes2]))
-        Probabilities = Model.predict(X, batch_size=1, verbose=0)[0, -1]    #بعد اول به بچ سایز وبعد دوم به احتمالات پیش بینی شده اشاره دارد-بچ سایز 1 اشاره ب این داره که یک نمونه داره ارائه میشه ب مدل
-                                                                            #ورباس صفر برای اینه ک موقع انجام کار خروجی چاپ نکن
-                                                                            #[0, -1] ، صفرنشان دهنده اندازه بچ سایز که اینجا مقدارش 1 و دومین عدد ینی احتمالات اخرین توکن را میخاهیم
+        Probabilities = Model.predict(X, batch_size=1, verbose=0)[0, -1]   
         Probabilities[[OOVIndex1, PaddingIndex1]] = 0                     
         if not First:
             Probabilities[StartIndex1] = 0
@@ -157,10 +155,6 @@ def GeneratePasswords(N:int,
     with open('Generated Passwords-10epoch-hotmail-1000.txt', mode='w', encoding='UTF-8') as F:
         F.write('\n'.join(Passwords))
 
-
-
-
-
 RandomState = 0
 Style = 'ggplot'
 Path = 'train_hotmail.txt'
@@ -169,10 +163,6 @@ nLag = 5
 nHorizon = 1
 
 ResetSettings(RandomState, Style)
-
 _, _, Vocabulary, Characters = Fetch(Path, sVocabulary0)
-
 Model = LoadModel()
-
 GeneratePasswords(1000, Model, Vocabulary, Characters, nLag)
-
